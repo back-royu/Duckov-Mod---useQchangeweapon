@@ -21,4 +21,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3597205849
 
 ------
 本人代码基础约等于0，命名不规范等坏习惯请勿学习
+
 文件使用 VScode 的 C# 编写
+------
+思路：从 CharacterInputControl 检测 inputaction 判断玩家切换武器，记录数值进行对调后使用 CharacterMainControl 控制玩家角色。
+
+检测输入用的方法不好，还将初始化扔进了update里，感觉很粗暴
