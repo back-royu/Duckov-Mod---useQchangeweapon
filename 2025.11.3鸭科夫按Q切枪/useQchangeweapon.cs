@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Reflection;
 using ItemStatsSystem;
 using Duckov;
+using Unity.VisualScripting;
 
 namespace useQchangeweapon
 {
@@ -148,8 +149,10 @@ namespace useQchangeweapon
         private void OnQuickSwitch()
         {
             if (LastWeapen_key == 0 || LastWeapen_key == 1 || LastWeapen_key == -1)//-1、0、1 武器切换
+            {
                 CharacterMainControl.Main.SwitchToWeapon(LastWeapen_key);
-            if(LastWeapen_key>=3 && LastWeapen_key <= 8) //3-8快捷栏物品切换
+            }
+            if (LastWeapen_key >= 3 && LastWeapen_key <= 8) //3-8快捷栏物品切换
             {
                 Item item = ItemShortcut.Get(LastWeapen_key - 3);
                 if (item != null && (item.GetBool("IsSkill") || item.HasHandHeldAgent))
@@ -165,11 +168,16 @@ namespace useQchangeweapon
         // 模仿 CharacterInputControl.cs 的 ShotrCutInput 处理其他物品快捷键
         private void OnItemshortcutSelected(int itemIndex)
         {
-            if(NewWeapen_key != itemIndex)
+            Item item = ItemShortcut.Get(itemIndex - 3);
+            if (item != null && (item.GetBool("IsSkill") || item.HasHandHeldAgent))
             {
-                LastWeapen_key = NewWeapen_key;
-                NewWeapen_key = itemIndex;//3-8
+                if(NewWeapen_key != itemIndex)
+                {
+                    LastWeapen_key = NewWeapen_key;
+                    NewWeapen_key = itemIndex;//3-8
+                }
             }
+            else return;
         }
         private void OnShortCutInput3Performed()
         {
